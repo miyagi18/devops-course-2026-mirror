@@ -40,3 +40,12 @@
 2. `02-keys-configured` — настроена ключевая аутентификация.
 3. `03-ssh-hardened` — усиlena защита SSH, изменён порт.
 4. `04-ufw-configured` — настроен межсетевой экран UFW и локальное доменное имя.
+
+## 8. Веб-сервер
+- **Устанавливаемый пакет:** `nginx`
+- **Путь к конфигурации ресурса:** `/etc/nginx/sites-available/devops-site` (активирован через симлинк в `/etc/nginx/sites-enabled/`)
+- **Каталог ресурса:** `/var/www/devops-site`, владелец: `devops:devops`, права: `755` для каталога, `644` для файлов.
+- **Открытый сертификат:** `/etc/ssl/certs/devops.crt` (права `644`, владелец `root:root`)
+- **Закрытый ключ:** `/etc/ssl/private/devops.key` (права `600`, владелец `root:root`)
+- **Команда формирования сертификата:** `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/devops.key -out /etc/ssl/certs/devops.crt -subj "/CN=devops.local" -addext "subjectAltName=DNS:devops.local"`
+- **Срок действия:** 365 дней.
